@@ -3,9 +3,9 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using SubtitlesConverter.Common;
 
-namespace SubtitlesConverter.Domain
+namespace SubtitlesConverter.Domain.TextProcessing
 {
-    class SentencesBreaker
+    class SentencesBreaker : ITextProcessor
     {
         private IEnumerable<(string pattern, string extract, string remove)> Rules { get; } = new[]
         {
@@ -17,7 +17,7 @@ namespace SubtitlesConverter.Domain
             (@"^(?<extract>.+\!).*$", "${extract}", "${extract}"),
         };
 
-        public IEnumerable<string> Break(IEnumerable<string> text) =>
+        public IEnumerable<string> Execute(IEnumerable<string> text) =>
             text.SelectMany(this.Break);
 
         private IEnumerable<string> Break(string text)
