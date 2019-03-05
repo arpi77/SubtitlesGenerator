@@ -2,8 +2,9 @@
 using System.IO;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using SubtitlesConverter.Domain;
 
-namespace TextToSrt
+namespace SubtitlesConverter.Presentation
 {
     class Program
     {
@@ -25,8 +26,8 @@ namespace TextToSrt
             try
             {
                 string[] text = File.ReadAllLines(source.FullName);
-                Captions captions = Captions.Parse(text, clipDuration);
-                captions.SaveAsSrt(destination);
+                Subtitles subtitles = Subtitles.Parse(text, clipDuration);
+                subtitles.SaveAsSrt(destination);
             }
             catch (Exception ex)
             {

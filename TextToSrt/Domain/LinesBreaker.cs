@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using SubtitlesConverter.Common;
 
-namespace TextToSrt
+namespace SubtitlesConverter.Domain
 {
     class LinesBreaker
     {
@@ -32,11 +33,11 @@ namespace TextToSrt
             },
         };
 
-        public IEnumerable<string> BreakLongLines(
+        public IEnumerable<string> Break(
             IEnumerable<string> text, int maxLineCharacters, int minBrokenLength) =>
-            text.SelectMany(line => this.BreakLongLine(line, maxLineCharacters, minBrokenLength));
+            text.SelectMany(line => this.Break(line, maxLineCharacters, minBrokenLength));
 
-        public IEnumerable<string> BreakLongLine(string line, int maxLength, int minBrokenLength)
+        public IEnumerable<string> Break(string line, int maxLength, int minBrokenLength)
         {
             string remaining = line;
 

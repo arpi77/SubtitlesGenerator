@@ -1,13 +1,13 @@
 ﻿using System;
 
-namespace TextToSrt
+namespace SubtitlesConverter.Domain
 {
-    class CaptionLine
+    class SubtitleLine
     {
         public string Content { get; }
         public TimeSpan Duration { get; }
 
-        public CaptionLine(string content, TimeSpan duration)
+        public SubtitleLine(string content, TimeSpan duration)
         {
             this.Content = content.Trim();
             this.Duration = duration;

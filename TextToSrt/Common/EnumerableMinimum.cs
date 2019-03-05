@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace TextToSrt
+namespace SubtitlesConverter.Common
 {
-    public static class EnumerableExtensions
+    public static class EnumerableMinimum
     {
         public static T WithMinimum<T, TKey>(
             this IEnumerable<T> sequence, Func<T, TKey> selector)

@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using SubtitlesConverter.Common;
 
-namespace TextToSrt
+namespace SubtitlesConverter.Domain
 {
-    class SentenceRules
+    class SentencesBreaker
     {
         private IEnumerable<(string pattern, string extract, string remove)> Rules { get; } = new[]
         {
@@ -16,10 +17,10 @@ namespace TextToSrt
             (@"^(?<extract>.+\!).*$", "${extract}", "${extract}"),
         };
 
-        public IEnumerable<string> Split(IEnumerable<string> text) =>
-            text.SelectMany(this.BreakSentences);
+        public IEnumerable<string> Break(IEnumerable<string> text) =>
+            text.SelectMany(this.Break);
 
-        private IEnumerable<string> BreakSentences(string text)
+        private IEnumerable<string> Break(string text)
         {
             string remaining = text.Trim();
             while (remaining.Length > 0)
