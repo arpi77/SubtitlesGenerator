@@ -3,9 +3,9 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using SubtitlesConverter.Common;
 
-namespace SubtitlesConverter.Domain.TextProcessing
+namespace SubtitlesConverter.Domain.TextProcessing.Implementation
 {
-    class SentencesBreaker : ITextProcessor
+    public class SentencesBreaker : ITextProcessor
     {
         private IEnumerable<(string pattern, string extract, string remove)> Rules { get; } = new[]
         {

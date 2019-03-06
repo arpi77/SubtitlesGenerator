@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace SubtitlesConverter.Domain
+namespace SubtitlesConverter.Domain.Models
 {
-    class SubtitleLine
+    public class SubtitleLine
     {
         public string Content { get; }
         public TimeSpan Duration { get; }

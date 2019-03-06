@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 
-namespace SubtitlesConverter.Domain
+namespace SubtitlesConverter.Domain.TextProcessing
 {
-    internal interface ITextProcessor
+    public interface ITextProcessor
     {
         IEnumerable<string> Execute(IEnumerable<string> text);
     }
