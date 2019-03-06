@@ -1,8 +1,8 @@
-﻿using System;
+﻿using SubtitlesConverter.Domain.TextProcessing;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using SubtitlesConverter.Domain.TextProcessing;
 
 namespace SubtitlesConverter.Domain
 {
@@ -17,13 +17,21 @@ namespace SubtitlesConverter.Domain
 
         public static Subtitles Parse(string[] text, TimeSpan clipDuration)
         {
-            ITextProcessor cleanup = new LinesTrimmer();
-            ITextProcessor sentenceBreaker = new SentencesBreaker();
-            ITextProcessor intoShortLine = new LinesBreaker(95, 45);
+            //ITextProcessor pipeline = new Pipeline(
+            //    new LinesTrimmer(),
+            //    new SentencesBreaker(),
+            //    new LinesBreaker(95, 45));
 
-            IEnumerable<string> lines = cleanup.Execute(text);
-            lines = sentenceBreaker.Execute(lines);
-            lines = intoShortLine.Execute(lines).ToList();
+            //ITextProcessor chainedProcessor = new ChainedProcessor(new ChainedProcessor(
+            //    new LinesTrimmer(),
+            //    new SentencesBreaker()),
+            //    new LinesBreaker(95, 45));
+
+            ITextProcessor parsing = new LinesTrimmer()
+                .Then(new SentencesBreaker())
+                .Then(new LinesBreaker(95, 45));
+
+            IEnumerable<string> lines = parsing.Execute(text);
 
             TextDurationMeter durationMeter = new TextDurationMeter(lines, clipDuration);
             IEnumerable<SubtitleLine> subtitles = lines
@@ -31,7 +39,7 @@ namespace SubtitlesConverter.Domain
                 .Select(tuple => new SubtitleLine(tuple.text, tuple.duration));
             return new Subtitles(subtitles);
         }
-        
+
         private static IEnumerable<string> BreakIntoSentences(IEnumerable<string> text) =>
             new SentencesBreaker().Execute(text);
 
