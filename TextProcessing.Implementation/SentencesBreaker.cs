@@ -2,8 +2,9 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using SubtitlesConverter.Common;
+using SubtitlesConverter.Domain.TextProcessing;
 
-namespace SubtitlesConverter.Domain.TextProcessing.Implementation
+namespace SubtitlesConverter.TextProcessing.Implementation
 {
     public class SentencesBreaker : ITextProcessor
     {

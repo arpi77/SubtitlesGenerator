@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 namespace SubtitlesConverter.Domain.Models
@@ -14,8 +13,8 @@ namespace SubtitlesConverter.Domain.Models
             this.Lines = lines.ToList();
         }
 
-        public void SaveAsSrt(FileInfo destination) =>
-            File.WriteAllLines(destination.FullName, this.GenerateSrtFileContent());
+        public void SaveAsSrt(ITextWriter destination) =>
+            destination.Write(this.GenerateSrtFileContent());
 
         private IEnumerable<string> GenerateSrtFileContent() =>
             this.GenerateLineBoundaries()

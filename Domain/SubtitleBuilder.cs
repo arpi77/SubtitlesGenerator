@@ -6,25 +6,24 @@ namespace SubtitlesConverter.Domain
 {
     public class SubtitleBuilder
     {
-        private TimedText Text { get; set; } = TimedText.Empty;
+        private ITextReader Reader { get; set; } = TextReader.Empty;
+
         private ITextProcessor Processing { get; set; } = new DoNothing();
 
-        public SubtitleBuilder For(TimedText text)
+        public SubtitleBuilder For(ITextReader textReader)
         {
-            Text = text;
+            Reader = textReader;
             return this;
         }
-
+        
         public SubtitleBuilder Using(ITextProcessor textProcessor)
         {
             Processing.Then(textProcessor);
             return this;
         }
-
-
         public  Subtitles Build()
         {
-            TimedText timedText = Text.Apply(Processing);
+            TimedText timedText = Reader.Read().Apply(Processing);
 
             TextDurationMeter durationMeter = new TextDurationMeter(timedText);
 
